@@ -1,43 +1,48 @@
-﻿@*Im declare a strong type model*@
-@model RecrutTask.Models.DataModelEntity
-
+﻿@model RecrutTask.Models.DataModelEntity
 @{
     ViewBag.Title = "View";
 }
-<h2>This program translates your text</h2>
-@using (Html.BeginForm("GetInput","Home",FormMethod.Post,new { id = "my-Form" }))
-{
 
-    @Html.ValidationSummary()
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h2>Lets translate!</h2>
+    </div>
+    <div class="panel-body">
+        @using (Html.BeginForm("GetInput", "Home", FormMethod.Post, new { id = "my-Form", Class = "form-inline translate-form" }))
+        {
+            @Html.ValidationSummary()
+            <div class="form-group">
+                @Html.TextBoxFor(x => Model.InputString, new { Class = "form-control text-input" })
 
-        @Html.LabelFor(x => Model.InputString)
-        @Html.TextBoxFor(x=>Model.InputString)
+                <input class="btn btn-success submit-button" type="submit" value="Translate" />
 
-    <input class="btn btn-success" type="submit" value="Translate" />
-}
-<div id="result">  
+            </div>
+            <hr />
+            <div id="result" class="result-text"></div>
+        }
+    </div>
 </div>
+
 @section scripts{
-   
-   <script type="text/javascript">
 
-       $(function () {
+    <script type="text/javascript">
 
-           $("#my-Form").on("submit", function (e) {
-               e.preventDefault();
+        $(function () {
 
-               $.ajax({
-                   url: this.action,
-                   type: this.method,
-                   data: $(this).serialize(),
-                   success: function (data) {
-                       $("#result").html(data);
-                   }
-               });
+            $("#my-Form").on("submit", function (e) {
+                e.preventDefault();
 
-           });
-       });
+                $.ajax({
+                    url: this.action,
+                    type: this.method,
+                    data: $(this).serialize(),
+                    success: function (data) {
+                        $("#result").html(data);
+                    }
+                });
 
-    </script>    
-    }
+            });
+        });
 
+    </script>
+}

@@ -16,7 +16,7 @@ namespace RecrutTask.Models
         [Required(ErrorMessage = "Please, enter the text!")]    
         public string InputString { get; set; }
 
-        [Display(Name = "Text translated")]
+        [Display(Name = "Text translated: ")]
         public string TranslatedString { get; set; }
     }
 
